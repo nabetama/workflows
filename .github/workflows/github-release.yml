@@ -1,0 +1,15 @@
+on:
+  workflow_call:
+    secrets:
+      github-token:
+        description: 'A token pasased from the caller workflow. In default, it uses secrets.GITHUB_TOKEN'
+        required: false
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: softprops/action-gh-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.github-token || secrets.GITHUB_TOKEN }}
